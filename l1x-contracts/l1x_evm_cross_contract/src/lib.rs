@@ -16,9 +16,7 @@ struct EvmErc20 {
 
 impl EvmErc20 {
     pub fn new(evm_contract_address: Address) -> Self {
-        Self {
-            evm_contract_address,
-        }
+        Self { evm_contract_address }
     }
 
     pub fn totalSupply(&self) -> solabi::U256 {
@@ -30,28 +28,54 @@ impl EvmErc20 {
 
     pub fn balanceOf(&self, tokenOwner: solabi::Address) -> solabi::U256 {
         let func: solabi::FunctionEncoder<(solabi::Address,), (solabi::U256,)> =
-            solabi::FunctionEncoder::new(solabi::selector!("balanceOf(address)"));
+            solabi::FunctionEncoder::new(solabi::selector!(
+                "balanceOf(address)"
+            ));
 
         self.call_evm(&func, &(tokenOwner,), true).0
     }
 
-    pub fn transfer(&self, receiver: solabi::Address, numTokens: solabi::U256) -> bool {
-        let func: solabi::FunctionEncoder<(solabi::Address, solabi::U256), (bool,)> =
-            solabi::FunctionEncoder::new(solabi::selector!("transfer(address,uint256)"));
+    pub fn transfer(
+        &self,
+        receiver: solabi::Address,
+        numTokens: solabi::U256,
+    ) -> bool {
+        let func: solabi::FunctionEncoder<
+            (solabi::Address, solabi::U256),
+            (bool,),
+        > = solabi::FunctionEncoder::new(solabi::selector!(
+            "transfer(address,uint256)"
+        ));
 
         self.call_evm(&func, &(receiver, numTokens), false).0
     }
 
-    pub fn approve(&self, delegate: solabi::Address, numTokens: solabi::U256) -> bool {
-        let func: solabi::FunctionEncoder<(solabi::Address, solabi::U256), (bool,)> =
-            solabi::FunctionEncoder::new(solabi::selector!("approve(address,uint256)"));
+    pub fn approve(
+        &self,
+        delegate: solabi::Address,
+        numTokens: solabi::U256,
+    ) -> bool {
+        let func: solabi::FunctionEncoder<
+            (solabi::Address, solabi::U256),
+            (bool,),
+        > = solabi::FunctionEncoder::new(solabi::selector!(
+            "approve(address,uint256)"
+        ));
 
         self.call_evm(&func, &(delegate, numTokens), false).0
     }
 
-    pub fn allowance(&self, owner: solabi::Address, delegate: solabi::Address) -> solabi::U256 {
-        let func: solabi::FunctionEncoder<(solabi::Address, solabi::Address), (solabi::U256,)> =
-            solabi::FunctionEncoder::new(solabi::selector!("allowance(address,address)"));
+    pub fn allowance(
+        &self,
+        owner: solabi::Address,
+        delegate: solabi::Address,
+    ) -> solabi::U256 {
+        let func: solabi::FunctionEncoder<
+            (solabi::Address, solabi::Address),
+            (solabi::U256,),
+        > = solabi::FunctionEncoder::new(solabi::selector!(
+            "allowance(address,address)"
+        ));
 
         self.call_evm(&func, &(owner, delegate), true).0
     }
@@ -72,7 +96,12 @@ impl EvmErc20 {
         self.call_evm(&func, &(owner, buyer, numTokens), true).0
     }
 
-    fn call_evm<P, R>(&self, func: &solabi::FunctionEncoder<P, R>, params: &P, read_only: bool) -> R
+    fn call_evm<P, R>(
+        &self,
+        func: &solabi::FunctionEncoder<P, R>,
+        params: &P,
+        read_only: bool,
+    ) -> R
     where
         P: solabi::encode::Encode + solabi::decode::Decode,
         R: solabi::encode::Encode + solabi::decode::Decode,
@@ -104,9 +133,7 @@ pub struct Contract {
 #[contract]
 impl Contract {
     pub fn new(evm_address: Address) {
-        let mut contract = Self {
-            evm_erc20: EvmErc20::new(evm_address),
-        };
+        let mut contract = Self { evm_erc20: EvmErc20::new(evm_address) };
         Self::save(&mut contract);
     }
 
@@ -119,7 +146,10 @@ impl Contract {
             .balanceOf(solabi::Address::from_slice(address.as_bytes()))
             .to_string();
 
-        l1x_sdk::msg(&format!("L1XVM: Balance of {} is {} tokens", address, ret));
+        l1x_sdk::msg(&format!(
+            "L1XVM: Balance of {} is {} tokens",
+            address, ret
+        ));
         ret
     }
 
@@ -151,6 +181,9 @@ impl Contract {
     }
 
     fn save(&mut self) {
-        l1x_sdk::storage_write(STORAGE_CONTRACT_KEY, &self.try_to_vec().unwrap());
+        l1x_sdk::storage_write(
+            STORAGE_CONTRACT_KEY,
+            &self.try_to_vec().unwrap(),
+        );
     }
 }
