@@ -1,0 +1,9 @@
+{
+  "contract_instance_address": {
+    "hex": "0d92456f88ec438e3de1c0dca65ea7e209f816e4"
+  },
+  "function": { "text": "balance_of" },
+  "arguments": {
+    "text": "{\"address\":\"c81ddb9dfbe6b345b0265ff2405dc6c9826cb72e\"}"
+  }
+}

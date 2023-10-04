@@ -1,0 +1,14 @@
+target
+.devbox
+l1x-artifacts/*
+l1x-eth-artifacts/*
+l1x-traces/*
+l1x-misc/*
+devbox-services-devnode.log
+l1x-conf/cassandra1_data/*
+l1x-conf/cassandra2_data/*
+l1x-conf/scripts/l1x-forge-cli/*
+**/node_modules/**
+.idea/
+**/artifacts/**
+**/cache/**

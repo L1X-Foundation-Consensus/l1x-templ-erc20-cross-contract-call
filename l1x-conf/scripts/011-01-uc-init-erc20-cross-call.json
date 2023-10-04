@@ -1,0 +1,8 @@
+{
+  "smart_contract_init": [
+    { "hex": "dc08b94b236f3635e4aab36511ec415a52d73057" },
+    {
+      "text": "{\"evm_address\": \"49c2bd0c7636a4f6e50c08ae746a92222fe7a252\"}"
+    }
+  ]
+}

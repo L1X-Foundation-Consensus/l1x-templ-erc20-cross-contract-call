@@ -1,0 +1,9 @@
+[workspace.package]
+authors = ["l1x-team <info@l1x.foundation>"]
+edition = "2021"
+repository = "https://github.com/L1X-Foundation-VM/l1x-contracts/"
+
+[workspace]
+members = [
+	"l1x-contracts/l1x_evm_cross_contract",
+]

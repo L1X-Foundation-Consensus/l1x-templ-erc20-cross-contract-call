@@ -1,0 +1,18 @@
+[package]
+name = "l1x-evm-cross-contract"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+borsh = { version = "0.9", features = ["const-generics"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+solabi = { version = "0.1", features = ["macros"] }
+hex = "0.4"
+
+l1x-sdk = { version = "0.2.1", git = "https://github.com/L1X-Foundation-Consensus/l1x-templ-sdk.git", package = "l1x-sdk" }

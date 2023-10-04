@@ -1,0 +1,7 @@
+{
+  "name": "l1x-templ-erc20-cross-chain-call",
+  "version": "1.0.0",
+  "description": "L1X template to demonstrate cross-contract call",
+  "main": "index.js",
+  "license": "MIT"
+}

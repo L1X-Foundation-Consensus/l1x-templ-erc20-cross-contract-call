@@ -1,0 +1,13 @@
+{
+  "smart_contract_deployment": [
+    "PRIVATE",
+    "L1XVM",
+    {
+      "file": "/home/l1x/l1x-ws/l1x-artifacts/l1x_evm_cross_contract.o"
+    },
+    0,
+    {
+      "text": "00000000000000000000000000000000"
+    }
+  ]
+}

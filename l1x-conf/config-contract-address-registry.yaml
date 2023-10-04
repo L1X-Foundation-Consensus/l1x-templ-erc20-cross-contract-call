@@ -1,0 +1,13 @@
+l1x_vm:
+  l1x_evm_cross_contract.o:
+    deploy_hash: 704b8c7d5e0019e44c50292fdf3a6c56e9c3b80fce27eb0a9d28ccc92b4e2aa5
+    deploy_address: '"0xf92286d5f2da5fb627f0b4506d40b0ad98f377c0"'
+    instance:
+      ERC20_CROSS_CALL:
+        inst_hash: 02edfe4e9a70a657d795be5e9e0e0535140513d2e31ddea28d614ffdc1557ef4
+        inst_address: '"0xc3584a91159b49c4372a6add76e4dddcdb5c3cb0"'
+l1x_evm:
+  creationCode20.txt:
+    deploy_hash: 7a74d2d010f4d3d7b07dc71fda8b423e3d0a46ba3cb1a0f6f7544097041e23f1
+    deploy_address: '"0x49c2bd0c7636a4f6e50c08ae746a92222fe7a252"'
+    instance: {}
