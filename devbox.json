@@ -7,38 +7,24 @@
     "openssl@3.0.10"
   ],
   "env": {
-    "L1X_CFG_ARTIFACTS": "$PWD/l1x-artifacts",
-    "L1X_CFG_CASSANDRA1_DATA": "$PWD/l1x-conf/cassandra1_data",
-    "L1X_CFG_CASSANDRA2_DATA": "$PWD/l1x-conf/cassandra2_data",
-    "L1X_CFG_CASSANDRA_HOST": "127.0.0.1",
-    "L1X_CFG_CASSANDRA_PORT": "9042",
+    "L1X_CFG_TOOLS": "l1x-toolkit:0.8.3",
     "L1X_CFG_CHAIN_TYPE": "local_devnet",
+    "L1X_CFG_WS_HOME": "$PWD",
+    "L1X_CFG_ARTIFACTS": "$PWD/l1x-artifacts",
+    "L1X_CFG_EVM_ARTIFACTS": "$PWD/l1x-evm-artifacts",
+    "L1X_CFG_DRT_ARTIFACTS": "/home/l1x/l1x-ws/l1x-artifacts",
+    "L1X_CFG_TRACES": "$PWD/l1x-traces",
     "L1X_CFG_CLI_SCRIPTS": "$PWD/l1x-conf/scripts",
     "L1X_CFG_DC_CMD_INTF": "docker-compose",
     "L1X_CFG_DC_FILE": "./devnet-services-dc.yml",
-    "L1X_CFG_DRT_ARTIFACTS": "/home/l1x/l1x-ws/l1x-artifacts",
-    "L1X_CFG_EVENT_LISTENER_LEADER_PORT": "8001",
-    "L1X_CFG_EVENT_LISTENER_REGULAR1_PORT": "8002",
-    "L1X_CFG_EVENT_LISTENER_REGULAR2_PORT": "8003",
-    "L1X_CFG_EVM_ARTIFACTS": "$PWD/l1x-evm-artifacts",
-    "L1X_CFG_TOOLS": "l1x-toolkit:0.8.3",
-    "L1X_CFG_TRACES": "$PWD/l1x-traces",
-    "L1X_CFG_WS_HOME": "$PWD"
+    "L1X_CFG_CASSANDRA1_DATA": "$PWD/l1x-conf/cassandra1_data",
+    "L1X_CFG_CASSANDRA2_DATA": "$PWD/l1x-conf/cassandra2_data",
+    "L1X_CFG_CASSANDRA_HOST": "127.0.0.1",
+    "L1X_CFG_CASSANDRA_PORT": "9042"
   },
   "shell": {
-    "init_hook": [
-      "echo Welcome to l1x-ft, Happy Coding! > /dev/null"
-    ],
+    "init_hook": ["echo Welcome to l1x-ft, Happy Coding! > /dev/null"],
     "scripts": {
-      "00_build_forge": [
-        "echo Build l1x-forge",
-        "cd ./l1x-misc/l1x-cargo-sde-tools && cargo build --release && cp ./target/release/l1x-forge ../install-bin"
-      ],
-      "00_copy_forge_binary": [
-        "devbox run 00_build_forge",
-        "echo Copy l1x-forge to l1x-misc/install-bin",
-        "cp ./l1x-misc/l1x-cargo-sde-tools/target/release/l1x-forge ./l1x-misc/install-bin"
-      ],
       "01_init_setup": [
         "echo Initializing Setup",
         "if [ ! -d $L1X_CFG_ARTIFACTS ]; then mkdir $L1X_CFG_ARTIFACTS; fi",
@@ -78,37 +64,6 @@
         "$L1X_CFG_DC_CMD_INTF -f $L1X_CFG_DC_FILE down cassandra2",
         "$L1X_CFG_DC_CMD_INTF -f $L1X_CFG_DC_FILE down cassandra1",
         "echo 'Stop L1X devnode services... Done!!!'"
-      ],
-      "03_01_start_monitor_services_leader": [
-        "echo 'Start L1X Offchain Monitor Services...'",
-        "devbox run 03_start_monitor_services_cmd l1x-event-listener-leader"
-      ],
-      "03_02_start_monitor_services_regular1": [
-        "echo 'Start L1X Offchain Monitor Services...'",
-        "devbox run 03_start_monitor_services_cmd l1x-event-listener-regular1"
-      ],
-      "03_03_start_monitor_services_regular2": [
-        "echo 'Start L1X Offchain Monitor Services...'",
-        "devbox run 03_start_monitor_services_cmd l1x-event-listener-regular2"
-      ],
-      "03_start_monitor_services_cmd": [
-        "echo 'Start L1X Offchain Monitor Service $1 ...'",
-        "SOURCE_REGISTRY_ADDRESS=$(l1x-conf/get_l1x_vm_contract_instance_address.sh l1x_vm source_registry.o instance XTALK_SOURCE_REGISTRY inst_address)",
-        "SOURCE_REGISTRY_ADDRESS=${SOURCE_REGISTRY_ADDRESS#0x}",
-        "echo Source Registry Address :: $SOURCE_REGISTRY_ADDRESS",
-        "log_trace_file=$L1X_CFG_TRACES/$1-$(date '+%d-%m-%y-%H%M').txt",
-        "$L1X_CFG_DC_CMD_INTF -f $L1X_CFG_DC_FILE run --rm -e INTF_ARG_REGISTRY_CONTRACT_ADDRESS=$SOURCE_REGISTRY_ADDRESS $1 2>&1 | tee $log_trace_file"
-      ],
-      "03_stop_monitor_services": [
-        "echo 'Stop L1X Offchain Monitor Services...'",
-        "docker stop $(docker ps -a | grep 'l1x-event-listener' | awk '{print $1}')",
-        "docker stop $(docker ps -a | grep 'l1x-node-signer' | awk '{print $1}')",
-        "echo 'Stop Offchain Monitor Services... Done!!!'"
-      ],
-      "04_01_start_monitor_signer_node": [
-        "echo 'Start L1X Offchain Monitor Signer Node Service ...'",
-        "log_trace_file=$L1X_CFG_TRACES/l1x-node-signer-$(date '+%d-%m-%y-%H%M').txt",
-        "$L1X_CFG_DC_CMD_INTF -f $L1X_CFG_DC_FILE run --rm l1x-node-signer 2>&1 | tee $log_trace_file"
       ],
       "10_01_compile_ebpf": [
         "CONTRACT1_EVM_CROSS_CALL=l1x_evm_cross_contract",
@@ -180,17 +135,17 @@
       "60_forge_install_ebpf_cmd_force_deploy": [
         "echo ebpf contract deploy and Init - Args",
         "echo :: $1, $2, $3",
-        "RUST_LOG=info ./l1x-misc/install-bin/l1x-forge vm-install-contract --vm-type ebpf --force --artifact-id $1 --contract-id $2 --owner $3"
+        "RUST_LOG=info l1x-forge vm-install-contract --vm-type ebpf --force --artifact-id $1 --contract-id $2 --owner $3"
       ],
       "61_forge_install_ebpf_cmd_reuse_deploy": [
         "echo ebpf contract Init - Args ::",
         "echo    - $1, $2, $3",
-        "RUST_LOG=info ./l1x-misc/install-bin/l1x-forge vm-install-contract --vm-type ebpf --artifact-id $1 --contract-id $2 --owner $3"
+        "RUST_LOG=info l1x-forge vm-install-contract --vm-type ebpf --artifact-id $1 --contract-id $2 --owner $3"
       ],
       "62_forge_install_evm_cmd_force_deploy": [
         "echo evm contract deploy and Init - Args",
         "echo :: $1, $2, $3",
-        "RUST_LOG=info ./l1x-misc/install-bin/l1x-forge vm-install-contract --vm-type evm --force --artifact-id $1 --contract-id $2 --owner $3"
+        "RUST_LOG=info l1x-forge vm-install-contract --vm-type evm --force --artifact-id $1 --contract-id $2 --owner $3"
       ],
       "80_00_forge_install_ebpf_all": [
         "echo forge Install all ebpf contracts",

@@ -80,51 +80,6 @@ services:
       - l1x-devnet-network
     restart: on-failure
 
-  l1x-event-listener-leader:
-    image: $L1X_CFG_TOOLS
-    volumes:
-      - $PWD:/home/l1x/l1x-ws
-    entrypoint: /bin/bash -l
-    command: >
-          -c '
-            ./l1x-ws/l1x-conf/l1x-tools-intf.sh launch-event-handler 1
-          '
-    networks:
-      - l1x-devnet-network
-    ports:
-      - "$L1X_CFG_EVENT_LISTENER_LEADER_PORT:$L1X_CFG_EVENT_LISTENER_LEADER_PORT"
-    restart: on-failure
-
-  l1x-event-listener-regular1:
-    image: $L1X_CFG_TOOLS
-    volumes:
-      - $PWD:/home/l1x/l1x-ws
-    entrypoint: /bin/bash -l
-    command: >
-          -c '
-            ./l1x-ws/l1x-conf/l1x-tools-intf.sh launch-event-handler 2
-          '
-    networks:
-      - l1x-devnet-network
-    ports:
-      - "$L1X_CFG_EVENT_LISTENER_REGULAR1_PORT:$L1X_CFG_EVENT_LISTENER_REGULAR1_PORT"
-    restart: on-failure
-
-  l1x-event-listener-regular2:
-    image: $L1X_CFG_TOOLS
-    volumes:
-      - $PWD:/home/l1x/l1x-ws
-    entrypoint: /bin/bash -l
-    command: >
-          -c '
-            ./l1x-ws/l1x-conf/l1x-tools-intf.sh launch-event-handler 2
-          '
-    networks:
-      - l1x-devnet-network
-    ports:
-      - "$L1X_CFG_EVENT_LISTENER_REGULAR2_PORT:$L1X_CFG_EVENT_LISTENER_REGULAR2_PORT"
-    restart: on-failure
-
   l1x-tools-intf-gen-ir:
     image: $L1X_CFG_TOOLS
     volumes:
