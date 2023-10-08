@@ -7,6 +7,60 @@
       "source": "devbox-search",
       "version": "4.1.2"
     },
+    "clang_16@latest": {
+      "last_modified": "2023-09-27T18:02:17Z",
+      "resolved": "github:NixOS/nixpkgs/517501bcf14ae6ec47efd6a17dda0ca8e6d866f9#clang_16",
+      "source": "devbox-search",
+      "version": "16.0.6",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/dcqiyljbz80n8g9qqylkkh8msak4lbdz-clang-wrapper-16.0.6"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/sf4qqlrbvx6q0n7x2af411kj8f6ivj5q-clang-wrapper-16.0.6"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/as91d122xvv9y62z2xqjhnf3db5mspv2-clang-wrapper-16.0.6"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/369625b7j1zjh9ha3lqa2vfmv475shli-clang-wrapper-16.0.6"
+        }
+      }
+    },
+    "docker-compose@2.21.0": {
+      "last_modified": "2023-09-27T18:02:17Z",
+      "resolved": "github:NixOS/nixpkgs/517501bcf14ae6ec47efd6a17dda0ca8e6d866f9#docker-compose",
+      "source": "devbox-search",
+      "version": "2.21.0",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/0b8pr63npfilr122amnsagzbs30lk420-docker-compose-2.21.0"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/z37mm1r5g0z56y3m96rsyz4m7k8rahni-docker-compose-2.21.0"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/nhgkwsjhiij70agznpbhx5mh1a1v2mjy-docker-compose-2.21.0"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/n2vg8v76r9izwilsggrn6szdq15jjl7n-docker-compose-2.21.0"
+        }
+      }
+    },
+    "libiconv@2.37": {
+      "last_modified": "2023-09-27T18:02:17Z",
+      "resolved": "github:NixOS/nixpkgs/517501bcf14ae6ec47efd6a17dda0ca8e6d866f9#libiconv",
+      "source": "devbox-search",
+      "version": "2.37",
+      "systems": {
+        "aarch64-linux": {
+          "store_path": "/nix/store/la9j4bk5ij2r3ligch6ps7m9aq0d3h76-glibc-iconv-2.37"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/km60vvxwdbfnfx522xcmisg4knz43hyr-glibc-iconv-2.37"
+        }
+      }
+    },
     "nodejs@18.14.2": {
       "last_modified": "2023-03-16T17:26:55Z",
       "resolved": "github:NixOS/nixpkgs/194c2aa446b2b059886bb68be15ef6736d5a8c31#nodejs",

@@ -4,19 +4,22 @@
     "nodejs@18.14.2",
     "yarn@1.22.19",
     "yq@3.2.3",
-    "openssl@3.0.10"
+    "openssl@3.0.10",
+    "clang_16@latest",
+    "libiconv@2.37",
+    "docker-compose@2.21.0"
   ],
   "env": {
     "L1X_CFG_TOOLS": "l1x-toolkit:0.8.3",
     "L1X_CFG_CHAIN_TYPE": "local_devnet",
     "L1X_CFG_WS_HOME": "$PWD",
     "L1X_CFG_ARTIFACTS": "$PWD/l1x-artifacts",
-    "L1X_CFG_EVM_ARTIFACTS": "$PWD/l1x-evm-artifacts",
     "L1X_CFG_DRT_ARTIFACTS": "/home/l1x/l1x-ws/l1x-artifacts",
+    "L1X_CFG_EVM_ARTIFACTS": "$PWD/l1x-evm-artifacts",
     "L1X_CFG_TRACES": "$PWD/l1x-traces",
     "L1X_CFG_CLI_SCRIPTS": "$PWD/l1x-conf/scripts",
     "L1X_CFG_DC_CMD_INTF": "docker-compose",
-    "L1X_CFG_DC_FILE": "./devnet-services-dc.yml",
+    "L1X_CFG_DC_FILE": "$PWD/devnet-services-dc.yml",
     "L1X_CFG_CASSANDRA1_DATA": "$PWD/l1x-conf/cassandra1_data",
     "L1X_CFG_CASSANDRA2_DATA": "$PWD/l1x-conf/cassandra2_data",
     "L1X_CFG_CASSANDRA_HOST": "127.0.0.1",
@@ -103,12 +106,12 @@
       ],
       "18_cli_ro_get_balanceof_super": [
         "echo '**** 📦 l1x-vm -> l1x-evm check balance of super 📦****'",
-        "devbox run 18_cli_ro_call_cmd 012-01-test-vm-cc-erc20-balance-of.json",
+        "devbox run 18_cli_ro_call_cmd 012-01-test-vm-cc-erc20-balance-of-super.json",
         "echo '📦   **************************************************************** 📦 '"
       ],
       "18_cli_sub_txn_cc_transfer_to_cc_contract": [
         "echo '**** 📦 l1x-vm -> l1x-evm erc20 transfer to CC contract address 📦****'",
-        "devbox run 41_cli_vm_sub_txn_cmd 012-02-test-vm-cc-erc20-transfer.json",
+        "devbox run 41_cli_vm_sub_txn_cmd 012-00-test-vm-cc-erc20-transfer.json",
         "echo '📦   **************************************************************** 📦 '"
       ],
       "18_cli_sub_txn_erc20_transfer_to_cc_contract": [
@@ -131,6 +134,18 @@
       "41_cli_vm_sub_txn_cmd": [
         "echo Init Contract $1",
         "$L1X_CFG_DC_CMD_INTF -f $L1X_CFG_DC_FILE run --rm -e INTF_ARG_OWNER=super -e INTF_ARG_PAYLOAD=$1 l1x-tools-intf-sub-txn"
+      ],
+      "42_00_cli_init_evm_cmd": [
+        "echo Deploying Contract $1",
+        "$L1X_CFG_DC_CMD_INTF -f $L1X_CFG_DC_FILE run --rm -e INTF_ARG_OWNER=super -e INTF_ARG_PAYLOAD=$1 l1x-tools-intf-sub-sol"
+      ],
+      "42_01_cli_init_evm_all": [
+        "echo Init l1x-evm will all contracts",
+        "devbox run 42_02_cli_init_evm_erc20"
+      ],
+      "42_02_cli_init_evm_erc20": [
+        "echo init l1x-evm with erc20",
+        "devbox run 42_00_cli_init_evm_cmd 009-01-uc-deploy-evm-erc20.json"
       ],
       "60_forge_install_ebpf_cmd_force_deploy": [
         "echo ebpf contract deploy and Init - Args",
