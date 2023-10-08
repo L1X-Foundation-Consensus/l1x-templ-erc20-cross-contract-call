@@ -10,7 +10,7 @@
     "docker-compose@2.21.0"
   ],
   "env": {
-    "L1X_CFG_TOOLS": "l1x-toolkit:0.8.3",
+    "L1X_CFG_TOOLS": "kevincoutinho007/l1x-toolkit:0.5",
     "L1X_CFG_CHAIN_TYPE": "local_devnet",
     "L1X_CFG_WS_HOME": "$PWD",
     "L1X_CFG_ARTIFACTS": "$PWD/l1x-artifacts",
