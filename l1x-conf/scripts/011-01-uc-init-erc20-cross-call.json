@@ -1,6 +1,6 @@
 {
   "smart_contract_init": [
-    { "hex": "de13a5718e0c0a7c34de6a86b272c097c2561efb" },
+    { "hex": "a728d3138817d31adcef51a753aa68e8746d7f3a" },
     {
       "text": "{\"evm_address\": \"49c2bd0c7636a4f6e50c08ae746a92222fe7a252\"}"
     }

@@ -1,7 +1,7 @@
 {
   "smart_contract_function_call": {
     "contract_instance_address": {
-      "hex": "8db56afe999f2e2d67105f4c6b111469700d7598"
+      "hex": "4c8a5411e4dd41024673392050ab8928050e8c8d"
     },
     "function": { "text": "transfer" },
     "arguments": {

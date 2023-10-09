@@ -8,6 +8,6 @@ l1x_vm:
         inst_address: '"0xc3584a91159b49c4372a6add76e4dddcdb5c3cb0"'
 l1x_evm:
   creationCode20.txt:
-    deploy_hash: eabc688dec21e953e1cceb4dd04f3a664c3310159fcf50027f360ad0d1c6a68d
+    deploy_hash: 4c9cefc12762ac8c7632cad03ad841b7529dcc820faf45117215a28e25a15a43
     deploy_address: '"0x49c2bd0c7636a4f6e50c08ae746a92222fe7a252"'
     instance: {}
